@@ -32,4 +32,5 @@ git clone https://github.com/tobi-nmx/docker-training.git
 - [Traefik Docs](https://docs.traefik.io/)
 - [Wordpress Docs](https://developer.wordpress.org/)
 - [MariaDB Primer](https://mariadb.com/kb/en/a-mariadb-primer/)
+- [Github Cheat Sheet](https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf)
 
