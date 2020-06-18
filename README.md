@@ -29,3 +29,7 @@ git clone https://github.com/tobi-nmx/docker-training.git
 ### Some usefull links
 - [Docker Hub](https://hub.docker.com/)
 - [YAML](https://rollout.io/blog/yaml-tutorial-everything-you-need-get-started/)
+- [Traefik](https://docs.traefik.io/)
+- [Wordpress](https://wordpress.org/)
+- [MariaDB primer](https://mariadb.com/kb/en/a-mariadb-primer/)
+
