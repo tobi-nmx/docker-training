@@ -22,6 +22,8 @@ docker-compose ps
 docker-compose logs [service]
 docker-compose restart [service]
 docker-compose down
+
+git clone https://github.com/tobi-nmx/docker-training.git
 ```
 
 ### Some usefull links
