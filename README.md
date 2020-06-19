@@ -46,6 +46,7 @@ docker-compose logs [service]
 docker-compose restart [service]
 docker-compose down
 docker-compose exec [container] sh
+docker-compose up --force-recreate -d
 ```
 
 ### Security: ARA
