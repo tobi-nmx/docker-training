@@ -40,6 +40,7 @@ git clone https://github.com/tobi-nmx/docker-training.git
 - encryption in transit (TLS1.2)
 - GAP: firewall (2nd layer of defense) - use netfilter, but only on ext. interface
 - GAP: WAF - mitigation plan: install "Wordfence" plugin)
+- GAP: management dashboard exposed to the internet without protection
 ##### Secure system configuration
 - use of official quality assured images provided by Docker Inc.
 - GAP: updates must be installed manuall. Option to consider: use of "watchtower"
