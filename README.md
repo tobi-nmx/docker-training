@@ -84,7 +84,7 @@ docker-compose up -d
 # then replace the link inside the file "docker-compose.yml" line 30
 # by using vi, the built-in editor or the following command.
 # Remove the http:// and trailing slash - keep the hostname only!
-sed -i 's/MYURL/XXX/g' input.txt
+sed -i 's/MYURL/XXX/g' docker-compose.yml
 
 # Apply changes
 docker-compose up -d
