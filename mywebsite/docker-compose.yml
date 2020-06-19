@@ -25,12 +25,10 @@ services:
       - database
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mywebsite.entrypoints=http"
-      - "traefik.http.routers.mywebsite.rule=HostRegexp(`{host:[a-z0-9.]+}`)"
-      #- "traefik.http.routers.mywebsite.entrypoints=https"
+      - "traefik.http.routers.mywebsite.entrypoints=https"
       #- "traefik.http.routers.mywebsite.rule=Host(`test.azlab.de`)"
-      #- "traefik.http.routers.mywebsite.entrypoints=https"
-      #- "traefik.http.routers.mywebsite.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.mywebsite.rule=Host(`ip172-18-0-49-brmd4hboudsg00esj7q0-443.direct.labs.play-with-docker.com`)"
+      - "traefik.http.routers.mywebsite.tls.certresolver=letsencrypt"
 
   db:
     image: mariadb
@@ -50,16 +48,16 @@ services:
     image: traefik:latest
     restart: always
     ports:
-      - "1180:80"
-      - "11443:443"
-      - "1999:9999"
+      - "80:80"
+      - "443:443"
+      - "9999:9999"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/acme:/etc/traefik/acme
     networks:
       - proxy
     command:
-      - "--log.level=INFO"
+      - "--log.level=DEBUG"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=mywebsite_proxy"
@@ -76,9 +74,9 @@ services:
     labels:
       # global redirect to https
       - "traefik.enable=true"
-      #- "traefik.http.routers.http-catchall.entrypoints=http"
-      #- "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
-      #- "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-      #- "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      #- "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+      - "traefik.http.routers.http-catchall.entrypoints=http"
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
 
