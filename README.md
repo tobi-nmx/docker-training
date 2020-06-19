@@ -16,7 +16,7 @@ touch docker-compose.yml
 ```
 
 ### Create the stack
-1) load the docker-compose file in the built-in web-editor (or use vi)
+1) load the file `docker-compose.yml` into the built-in web-editor (or use vi)
 1) copy & paste the content of `stack.yml` from https://hub.docker.com/_/wordpress/ into your file
 1) save the file
 1) deploy the stack:
