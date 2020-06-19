@@ -47,6 +47,8 @@ git clone https://github.com/tobi-nmx/docker-training.git
 ##### Vulnerability management
 - use of official Docker images, scanned on pull
 - GAP: regular scan of running containers
+##### IAM
+- GAP: enable MFA in Wordpress!!! (e.g. Duo Plugin)
 ##### all other control areas
 - missing. But it's not so bad anyhow, actually. Try to hack it and you'll see.
   
