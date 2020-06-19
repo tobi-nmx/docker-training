@@ -4,16 +4,33 @@ This repository is providing snipplets for an internal training and most likely 
 
 1) Startup to your playground: https://labs.play-with-docker.com/
 1) Click `+ ADD NEW INSTANCE`
+1) hit Alt+Enter in the terminal window
 
-### Create directory and docker-compose file for stack
+Now the fun can begin.
+
+### Create directory and docker-compose file
 type this into the terminal (or use copy & paste)
 ```
 mkdir mywebapp && cd mywebapp
 touch docker-compose.yml
 ```
 
-Now you're all set and the training can start.
+### Create the stack
+1) load the docker-compose file in the built-in web-editor (or use vi)
+1) copy & paste the content of `stack.yml` from https://hub.docker.com/_/wordpress/ into your file
+1) save the file
+1) deploy the stack:
+```
+docker-compose up
+```
+1) click on `80`next to `OPEN PORT` and shortly enjoy your website before we
+1) terminate the containers: press CTRL+c
 
+### now let's make this more secure
+1) define networks
+2) add proxy and enable TLS
+
+---
 
 ### Docker images used
 - https://hub.docker.com/_/wordpress
@@ -29,9 +46,8 @@ docker-compose logs [service]
 docker-compose restart [service]
 docker-compose down
 docker-compose exec [container] sh
-
-git clone https://github.com/tobi-nmx/docker-training.git
 ```
+
 ### Security: ARA
 ##### Secure network design
 - dedicated ingress-proxy
@@ -52,6 +68,29 @@ git clone https://github.com/tobi-nmx/docker-training.git
 ##### all other control areas
 - missing. But it's not so bad anyhow, actually. Try to hack it and you'll see.
   
+
+### Cheating: finishing under 2 minutes
+```
+# pull repository
+git clone https://github.com/tobi-nmx/docker-training.git
+
+# enter stack directory
+cd docker-training/mywebsite/
+
+# pull, create and start containers
+docker-compose up -d
+
+# Now you need to copy the URL from the "443" link the next to "OPEN PORT"
+# then replace the link inside the file "docker-compose.yml" line 30
+# by using vi, the built-in editor or the following command.
+# Remove the http:// and trailing slash - keep the hostname only!
+sed -i 's/MYURL/XXX/g' input.txt
+
+# Apply changes
+docker-compose up -d
+
+# now you can enter the hostname in your browser, change to https, accept the risk
+```
 
 ### Some usefull links
 - [Docker Hub](https://hub.docker.com/)
