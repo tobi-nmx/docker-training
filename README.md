@@ -52,14 +52,14 @@ docker-compose exec [container] sh
 ##### Secure network design
 - dedicated ingress-proxy
 - required ports only exposed on proxy
-- use of multiple zones
+- use of multiple network zones
 - encryption in transit (TLS1.2)
 - GAP: firewall (2nd layer of defense) - use netfilter, but only on ext. interface
 - GAP: WAF - mitigation plan: install "Wordfence" plugin)
-- GAP: management dashboard exposed to the internet without protection
+- GAP: management dashboard exposed to the internet without protection (but ro)
 ##### Secure system configuration
 - use of official quality assured images provided by Docker Inc.
-- GAP: updates must be installed manuall. Option to consider: use of "watchtower"
+- GAP: updates must be installed manually. Option to consider: use of "watchtower"
 ##### Vulnerability management
 - use of official Docker images, scanned on pull
 - GAP: regular scan of running containers
