@@ -1,4 +1,4 @@
-version: '2.3'
+version: '3.0'
 
 networks:
   proxy:
@@ -8,10 +8,11 @@ services:
 
   wordpress:
     image: wordpress
-    container_name: wordpress
     restart: always
-    ports:
-      - 8080:80
+    depends_on:
+      - db
+    #ports:
+    #  - 8080:80
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: wordpress
@@ -24,14 +25,15 @@ services:
       - database
     labels:
       - "traefik.enable=true"
-      #- "traefik.http.routers.wpnmx.rule=Host(``)"
-      - "traefik.http.routers.wpnmx.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
-      - "traefik.http.routers.wpnmx.entrypoints=https"
-      - "traefik.http.routers.wpnmx.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.mywebsite.entrypoints=http"
+      - "traefik.http.routers.mywebsite.rule=HostRegexp(`{host:[a-z0-9.]+}`)"
+      #- "traefik.http.routers.mywebsite.entrypoints=https"
+      #- "traefik.http.routers.mywebsite.rule=Host(`test.azlab.de`)"
+      #- "traefik.http.routers.mywebsite.entrypoints=https"
+      #- "traefik.http.routers.mywebsite.tls.certresolver=letsencrypt"
 
   db:
     image: mariadb
-    container_name: db
     restart: always
     environment:
       MYSQL_DATABASE: wordpress
@@ -46,41 +48,37 @@ services:
 
   traefik:
     image: traefik:latest
-    container_name: traefik
     restart: always
     ports:
-      - "80:80"
-      - "443:443"
-      - "9999:9999"
+      - "1180:80"
+      - "11443:443"
+      - "1999:9999"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/acme:/etc/traefik/acme
-      - ./traefik/dynamic:/etc/traefik/dynamic
-      - ./traefik/log:/var/log/traefik
-      - ./webusers:/etc/webusers:ro
     networks:
       - proxy
     command:
-      - "--log.level=WARN"
+      - "--log.level=INFO"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=proxy"
-      - "--entrypoints.https.address=:443"
+      - "--providers.docker.network=mywebsite_proxy"
       - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
       - "--entrypoints.traefik.address=:9999"
       - "--api.dashboard=true"
       - "--api.insecure=true"
       - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      #- "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.letsencrypt.acme.email=wordpress@t.nmx.de"
+      - "--certificatesresolvers.letsencrypt.acme.email=wordpress-4452543@byom.de"
       - "--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json"
+      # remove for production
+      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
     labels:
       # global redirect to https
       - "traefik.enable=true"
-      - "traefik.http.routers.http-catchall.entrypoints=http"
-      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
-      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
-
+      #- "traefik.http.routers.http-catchall.entrypoints=http"
+      #- "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
+      #- "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      #- "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      #- "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
 
