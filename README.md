@@ -161,10 +161,12 @@ use the link "443" on the webpage. What do you see?
 2) apply your changes: `docker-compose up -d`
 
 #### configure Wordpress
-Now go to the URL (make sure it's https), accept the risk. TLS-certificate generation fails due to a 64 characters limit of LetsEncrypt. It works at home if your server is accessible from the internet on port 443. See for yourself:
+Now go to the URL (make sure it's https), accept the risk. Certificate generation didn't work well. Why? Find our yourself:
 ```
 docker-compose logs traefik
 ```
+
+*Yes, TLS-certificate generation fails due to the 64 characters hostname limit of LetsEncrypt. There is nothing you can do about this (even if you setup a CNAME the play-with-docker ingress router won't find your site anymore). It works on a "normal" vserver or at home if your server is accessible from the internet on port 443.*
 
 #### have check out the Proxy's dashboard
 by clicking at the "9999" link
