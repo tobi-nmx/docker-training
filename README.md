@@ -65,12 +65,99 @@ docker-compose up -d
 &ast; the play-with-docker environment has some technical limitations concerning these controls
 
 ### now let's make this more secure
-1) define networks
-2) add proxy and enable TLS
+#### define networks
+add this to your docker-compose.yml (e.g. before "services:")
+```
+networks:
+  proxy:
+  database:
+```
+#### attach services to the networks
+add this to the wordpress definition (somewhere, e.g. below the "volumes:" section)
+```
+    networks:
+      - proxy
+      - database
+```
 
-Changes are applied by the "up" same command:
+add this to the database definition (somewhere, e.g. below the "volumes:" section)
+```
+    networks:
+      - database
+```
+
+#### add proxy and enable TLS
+add this to your docker-compose.yml
+```
+  traefik:
+    image: traefik:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "9999:9999"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/acme:/etc/traefik/acme
+    networks:
+      - proxy
+    command:
+      - "--log.level=DEBUG"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=mywebsite_proxy"
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
+      - "--entrypoints.traefik.address=:9999"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=wordpress-4452543@byom.de"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json"
+      # remove for production
+      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+    labels:
+      # global redirect to https
+      - "traefik.enable=true"
+      - "traefik.http.routers.http-catchall.entrypoints=http"
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+```
+
+#### enable proxy for wordpress
+disable these two lines in the "wordpress" service:
+```
+    #ports:
+    #  - 8080:80
+```
+
+and add the proxy labels:
+```
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mywebsite.entrypoints=https"
+      - "traefik.http.routers.mywebsite.rule=Host(`MYURL`)"
+      - "traefik.http.routers.mywebsite.tls.certresolver=letsencrypt"
+```
+
+#### apply changes
 ```
 docker-compose up -d
+```
+
+#### access the url
+use the link `443` on the webpage. What do you see?
+
+#### let's fix the URL in the proxy settings
+1) replace `MYURL` with the hostname from the url (without `https://` and trailing `/`)
+2) apply your changes: `docker-compose up -d`
+
+#### configure Wordpress
+Now go to the URL (make sure it's https), accept the risk. TLS-certificate generation fails due to a 64 characters limit of LetsEncrypt. It works at home if your server is accessible from the internet on port 443. See for yourself:
+```
+docker-compose logs traefik
 ```
 
 ---
