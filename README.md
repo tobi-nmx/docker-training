@@ -47,7 +47,9 @@ docker-compose up -d
 || regular vuln. scan | workaround: regular redeployment (see patch mgmt) | maybe never |
 | **IAM** |
 || MFA | enable MFA in Wordpress (e.g. Duo Plugin) | sometime later |
-
+| **other control areas** |
+|| * | * | probably never |
+  
 
 
 ### now let's make this more secure
@@ -78,11 +80,6 @@ docker-compose exec [container] sh
 docker-compose pull && docker-compose up -d
 ```
 
-### Security: ARA
-##### Secure network design
-##### all other control areas
-- missing. But it's not so bad anyhow, actually. Try to hack it and you'll see.
-  
 
 ### Cheating: finishing under 2 minutes
 ```
