@@ -29,6 +29,27 @@ docker-compose up
 docker-compose up -d
 ```
 
+### Security Assessment
+| Control area   | control   | solution approach   | planned mitigation data |
+|:-|:-|:-|:-|
+| **Secure network design** |
+|| network segmentation | use of multiple network zones | within 30 minutes |
+|| network access controls | expose only required ports via dedicated ingress proxy | within 30 minutes |
+|| encryption in transit  | TLS1.2 via ingress proxy  | within 30 minutes |
+|| firewall (2nd layer of defense) | use netfilter (ext. inteface, only) | sometime later |
+|| WAF | install "Wordfence" plugin | sometime later | 
+|| access control for management dashboard exposed to the internet | add TLS and basic auth or bind to localhost | sometime later |
+| **Secure system configuration** |
+|| use of approved software | use of official quality assured images provided by Docker Inc. | implemented |
+|| patch management | use of "watchtower" or manual process | sometime later |
+| **Vulnerability management** |
+|| vuln. scan at time of deployment | use of official images scanned by Docker Inc | implemented |
+|| regular vuln. scan | workaround: regular redeployment (see patch mgmt) | maybe never |
+| **IAM** |
+|| MFA | enable MFA in Wordpress (e.g. Duo Plugin) | sometime later |
+
+
+
 ### now let's make this more secure
 1) define networks
 2) add proxy and enable TLS
@@ -59,21 +80,6 @@ docker-compose pull && docker-compose up -d
 
 ### Security: ARA
 ##### Secure network design
-- dedicated ingress-proxy
-- required ports only exposed on proxy
-- use of multiple network zones
-- encryption in transit (TLS1.2)
-- GAP: firewall (2nd layer of defense) - use netfilter, but only on ext. interface
-- GAP: WAF - mitigation plan: install "Wordfence" plugin)
-- GAP: management dashboard exposed to the internet without protection (but ro)
-##### Secure system configuration
-- use of official quality assured images provided by Docker Inc.
-- GAP: updates must be installed manually. Option to consider: use of "watchtower"
-##### Vulnerability management
-- use of official Docker images, scanned on pull
-- GAP: regular scan of running containers
-##### IAM
-- GAP: enable MFA in Wordpress!!! (e.g. Duo Plugin)
 ##### all other control areas
 - missing. But it's not so bad anyhow, actually. Try to hack it and you'll see.
   
