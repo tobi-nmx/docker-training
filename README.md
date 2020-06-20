@@ -30,7 +30,7 @@ docker-compose up -d
 ```
 
 ### Security Assessment
-| Control area   | control   | solution approach   | planned mitigation data |
+| Control area   | control   | solution approach   | planned mitigation date |
 |:-|:-|:-|:-|
 | **Secure network design** |
 || network segmentation | use of multiple network zones | within 30 minutes |
@@ -47,9 +47,19 @@ docker-compose up -d
 || regular vuln. scan | workaround: regular redeployment (see patch mgmt) | maybe never |
 | **IAM** |
 || MFA | enable MFA in Wordpress (e.g. Duo Plugin) | sometime later |
+| **Monitoring** |
+|| Application security monitoring | via Wordfence Plugin | sometime later |
+|| Availability monitoring | use SaaS, e.g. https://uptimerobot.com/ | sometime later |
+|| Observability and log management | Prometheus, Grafana, ELK | sometime later |
+| **Change Management** |
+|| Version control | use Github | sometime later |
+| **Backup** |
+|| regular backups | use mysqldump and rdiff-backup of docker volumes (offsite) | sometime later |
+| **DR** |
+|| DR concept | re-deploy on any virtual server using backup within minutes | sometime later |
+|| regular backups | use mysqldump and rdiff-backup of docker volumes (offsite) | sometime later |
 | **other control areas** |
 || * | * | probably never |
-  
 
 
 ### now let's make this more secure
