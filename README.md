@@ -41,7 +41,9 @@ docker-compose up -d
 || access control for management dashboard exposed to the internet | add TLS and basic auth or bind to localhost | sometime later |
 | **Secure system configuration** |
 || use of approved software | use of official quality assured images provided by Docker Inc. | :heavy_check_mark: |
-|| patch management | use of "watchtower" or manual process | sometime later |
+| **Patch management** |
+|| patch mgmt of container images | use of "watchtower" or manual process | sometime later |
+|| patch mgmt of Wordpress incl plugins | enable auto-upgrade and schedule cronjob "wp plugin update --all" | sometime later |
 | **Vulnerability management** |
 || vuln. scan at time of deployment | use of official images scanned by Docker Inc | :heavy_check_mark: |
 || regular vuln. scan | workaround: regular redeployment (see patch mgmt) | probably never |
