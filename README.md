@@ -24,11 +24,19 @@ touch docker-compose.yml
 docker-compose up
 ```
 1) click on `80`next to `OPEN PORT` and shortly enjoy your website before we
-1) terminate the containers: press CTRL+c
+1) press CTRL+c to shutdown the containers and start them again, propery in the background ("detached")
+```
+docker-compose up -d
+```
 
 ### now let's make this more secure
 1) define networks
 2) add proxy and enable TLS
+
+Changes are applied by the "up" same command:
+```
+docker-compose up -d
+```
 
 ---
 
