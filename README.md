@@ -45,6 +45,9 @@ docker-compose up -d
 | **Vulnerability management** |
 || vuln. scan at time of deployment | use of official images scanned by Docker Inc | :heavy_check_mark: |
 || regular vuln. scan | workaround: regular redeployment (see patch mgmt) | probably never |
+| **Encryption at rest** |
+|| wordpress data | use Linux dm-crypt for OS-level encryption of block storage | probably never |
+|| key management | could use KMS or Hashicorp vault | probably never |
 | **IAM** |
 || Web-application | enable MFA in Wordpress (e.g. Duo Plugin) | sometime later |
 || OS level | disable SSH password login, mandate password-protection of SSH keys, change SSH port | sometime later |
@@ -127,7 +130,7 @@ add this to your docker-compose.yml
 ```
 
 #### enable proxy for wordpress
-disable these two lines in the "wordpress" service:
+remove exposed ports from "wordpress" service by removing these lines (or add # in front)
 ```
     #ports:
     #  - 8080:80
@@ -141,6 +144,7 @@ and add the proxy labels:
       - "traefik.http.routers.mywebsite.rule=Host(`MYURL`)"
       - "traefik.http.routers.mywebsite.tls.certresolver=letsencrypt"
 ```
+`MYURL` should actually be changed but let's first find out our hostname.
 
 #### apply changes
 ```
