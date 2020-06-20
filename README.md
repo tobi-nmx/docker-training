@@ -34,8 +34,8 @@ docker-compose up -d
 |:-|:-|:-|:-|
 | **Secure network design** |
 || network segmentation | *use of multiple network zones* | :clock9: comming next |
-|| network access controls | *expose only required ports via dedicated ingress proxy* | :clock9: comming next |
-|| encryption in transit  | *TLS1.2 via ingress proxy* * | :clock9:  comming next |
+|| network access controls | *expose only required ports via dedicated ingress proxy | :clock9: comming next |
+|| encryption in transit  | *TLS1.2 via ingress proxy* | :clock9:  comming next |
 || firewall (2nd layer of defense) | use netfilter (ext. inteface, only) | sometime later |
 || WAF | install "Wordfence" plugin | sometime later | 
 || access control for management dashboard exposed to the internet | add TLS and basic auth or bind to localhost | sometime later |
@@ -67,7 +67,7 @@ docker-compose up -d
 | **other control areas** |
 || * | * | probably never |
 
-&ast; the play-with-docker environment has some technical limitations concerning these controls
+*The play-with-docker environment has some technical limitations so not all controls will actually work here*
 
 ### now let's make this more secure
 #### define networks
