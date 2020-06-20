@@ -35,7 +35,7 @@ docker-compose up -d
 | **Secure network design** |
 || network segmentation | use of multiple network zones | within 30 minutes |
 || network access controls | expose only required ports via dedicated ingress proxy | within 30 minutes |
-|| encryption in transit  | TLS1.2 via ingress proxy  | within 30 minutes |
+|| encryption in transit  | TLS1.2 via ingress proxy  | within 30 minutes* |
 || firewall (2nd layer of defense) | use netfilter (ext. inteface, only) | sometime later |
 || WAF | install "Wordfence" plugin | sometime later | 
 || access control for management dashboard exposed to the internet | add TLS and basic auth or bind to localhost | sometime later |
@@ -46,21 +46,23 @@ docker-compose up -d
 || vuln. scan at time of deployment | use of official images scanned by Docker Inc | implemented |
 || regular vuln. scan | workaround: regular redeployment (see patch mgmt) | maybe never |
 | **IAM** |
-|| MFA | enable MFA in Wordpress (e.g. Duo Plugin) | sometime later |
+|| Web-application | enable MFA in Wordpress (e.g. Duo Plugin) | sometime later |
+|| OS level | disable SSH password login, mandate password-protection of SSH keys, change SSH port | sometime later* |
 | **Monitoring** |
 || Application security monitoring | via Wordfence Plugin | sometime later |
 || Availability monitoring | use SaaS, e.g. https://uptimerobot.com/ | sometime later |
 || Observability and log management | Prometheus, Grafana, ELK | sometime later |
+| **Malware protection** |
+|| application integrity | use "Wordfence" plugin | sometime later |
 | **Change Management** |
 || Version control | use Github | sometime later |
-| **Backup** |
+| **Backup & DR** |
 || regular backups | use mysqldump and rdiff-backup of docker volumes (offsite) | sometime later |
-| **DR** |
 || DR concept | re-deploy on any virtual server using backup within minutes | sometime later |
-|| regular backups | use mysqldump and rdiff-backup of docker volumes (offsite) | sometime later |
 | **other control areas** |
 || * | * | probably never |
 
+&ast; the play-with-docker environment has some technical limitations concerning these controls
 
 ### now let's make this more secure
 1) define networks
