@@ -154,7 +154,7 @@ docker-compose up -d
 ```
 
 #### access the url
-use the link `443` on the webpage. What do you see?
+use the link "443" on the webpage. What do you see?
 
 #### let's fix the URL in the proxy settings
 1) replace `MYURL` with the hostname from the url (without `https://` and trailing `/`)
@@ -165,6 +165,12 @@ Now go to the URL (make sure it's https), accept the risk. TLS-certificate gener
 ```
 docker-compose logs traefik
 ```
+
+#### have check out the Proxy's dashboard
+by clicking at the "9999" link
+
+#### go through Wordpress setup wizzard and create your first post
+Your new website should be online now. Congratulations!
 
 ---
 
