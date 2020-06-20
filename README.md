@@ -4,7 +4,7 @@ This repository is providing snipplets for an internal training and most likely 
 
 1) Startup to your playground: https://labs.play-with-docker.com/
 1) Click `+ ADD NEW INSTANCE`
-1) hit Alt+Enter in the terminal window
+1) hit Alt+Enter in the terminal window for fullscreen
 
 Now the fun can begin.
 
