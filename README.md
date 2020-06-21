@@ -31,7 +31,7 @@ docker-compose up -d
 
 
 ### now let's make this more secure
-Look at all the [Open Security Issues](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity). THen filter for [Milestone "today"](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity+milestone%3Atoday).
+Look at all the [Open Security Issues](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity). Then filter for [Milestone "today"](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity+milestone%3Atoday).
 
 #### define networks
 add this to your docker-compose.yml (e.g. before "services:")
