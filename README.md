@@ -37,6 +37,8 @@ Look at all the [Open Security Issues](https://github.com/tobi-nmx/docker-traini
 1) [segregate networks](https://github.com/tobi-nmx/docker-training/issues/1)
 1) [implement ingres proxy with HTTPS](https://github.com/tobi-nmx/docker-training/issues/2)
 
+The solution is documented in the comment of the issue.
+
 #### apply changes
 ```
 docker-compose up -d
