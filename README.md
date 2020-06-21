@@ -33,83 +33,9 @@ docker-compose up -d
 ### now let's make this more secure
 Look at all the [Open Security Issues](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity). Then filter for [Milestone "today"](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity+milestone%3Atoday).
 
-#### define networks
-add this to your docker-compose.yml (e.g. before "services:")
-```
-networks:
-  proxy:
-  database:
-```
-#### attach services to the networks
-add this to the wordpress definition (somewhere, e.g. below the "volumes:" section)
-```
-    networks:
-      - proxy
-      - database
-```
-
-add this to the database definition (somewhere, e.g. below the "volumes:" section)
-```
-    networks:
-      - database
-```
-
-#### add proxy and enable TLS
-add this to your docker-compose.yml
-```
-  traefik:
-    image: traefik:latest
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-      - "9999:9999"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik/acme:/etc/traefik/acme
-    networks:
-      - proxy
-    command:
-      - "--log.level=DEBUG"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--providers.docker.network=mywebsite_proxy"
-      - "--entrypoints.http.address=:80"
-      - "--entrypoints.https.address=:443"
-      - "--entrypoints.traefik.address=:9999"
-      - "--api.dashboard=true"
-      - "--api.insecure=true"
-      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
-      - "--certificatesresolvers.letsencrypt.acme.email=wordpress-4452543@byom.de"
-      - "--certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json"
-      # remove for production
-      - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-    labels:
-      # global redirect to https
-      - "traefik.enable=true"
-      - "traefik.http.routers.http-catchall.entrypoints=http"
-      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:[a-z0-9-.]+}`)"
-      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
-```
-
-#### enable proxy for wordpress
-remove exposed ports from "wordpress" service by removing these lines (or add # in front)
-```
-    #ports:
-    #  - 8080:80
-```
-
-and add the proxy labels:
-```
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.mywebsite.entrypoints=https"
-      - "traefik.http.routers.mywebsite.rule=Host(`MYURL`)"
-      - "traefik.http.routers.mywebsite.tls.certresolver=letsencrypt"
-```
-`MYURL` should actually be changed but let's first find out our hostname.
+#### work on the two open tickets for our milestone
+1) [segregate networks](https://github.com/tobi-nmx/docker-training/issues/1)
+1) [implement ingres proxy with HTTPS](https://github.com/tobi-nmx/docker-training/issues/2)
 
 #### apply changes
 ```
