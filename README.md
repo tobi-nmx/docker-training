@@ -31,6 +31,8 @@ docker-compose up -d
 
 
 ### now let's make this more secure
+Look at the [Open Security Issues](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity)
+
 #### define networks
 add this to your docker-compose.yml (e.g. before "services:")
 ```
