@@ -16,19 +16,18 @@ touch docker-compose.yml
 ```
 
 ### Create the stack
-1) load the file `docker-compose.yml` into the built-in web-editor (or use vi)
+1) open the file `docker-compose.yml` using the built-in web-editor (or use vi)
 1) copy & paste the content of `stack.yml` from https://hub.docker.com/_/wordpress/ into your file
 1) save the file
 1) deploy the stack:
 ```
 docker-compose up
 ```
-1) click on `80`next to `OPEN PORT` and shortly enjoy your website before we
-1) press CTRL+c to shutdown the containers and start them again, propery in the background ("detached")
+1) click on `80`next to `OPEN PORT`, go through the basic Wordpress setup and shortly enjoy your website before we
+1) press CTRL+c to shutdown the containers and start them again, this time propery in the background ("detached")
 ```
 docker-compose up -d
 ```
-
 
 ### now let's make this more secure
 Look at all the [Open Security Issues](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity). Then filter for [Milestone "today"](https://github.com/tobi-nmx/docker-training/issues?q=is%3Aopen+is%3Aissue+label%3Asecurity+milestone%3Atoday).
@@ -37,7 +36,7 @@ Look at all the [Open Security Issues](https://github.com/tobi-nmx/docker-traini
 1) [segregate networks](https://github.com/tobi-nmx/docker-training/issues/1)
 1) [implement ingres proxy with HTTPS](https://github.com/tobi-nmx/docker-training/issues/2)
 
-The solution is documented in the comment of the issue.
+The solution is documented in the comments of the issues.
 
 #### apply changes
 ```
@@ -52,12 +51,17 @@ use the link "443" on the webpage. What do you see?
 2) apply your changes: `docker-compose up -d`
 
 #### configure Wordpress
-Now go to the URL (make sure it's https), accept the risk. Certificate generation didn't work well. Why? Find our yourself:
+Now go to the URL (make sure it's https), look at the certificate, accept the risk. What went wrong? Find our by yourself:
 ```
 docker-compose logs traefik
 ```
 
-*Yes, TLS-certificate generation fails due to the 64 characters hostname limit of LetsEncrypt. There is nothing you can do about this (even if you setup a CNAME the play-with-docker ingress router won't find your site anymore). It works on a "normal" vserver or at home if your server is accessible from the internet on port 443.*
+<details>
+  <summary>Result (spoiler)</summary>
+  
+  *Yes, TLS-certificate generation fails due to the 64 characters hostname limit of LetsEncrypt. There is nothing you can do about this (even if you setup a CNAME the play-with-docker ingress router won't find your site anymore). It works on a "normal" vserver or at home if your server is accessible from the internet on port 443.*  
+</details>
+
 
 #### have check out the Proxy's dashboard
 by clicking at the "9999" link
