@@ -2,6 +2,10 @@
 
 This repository is providing snipplets for an internal training and is most likely not useful for anyone else.
 
+### Some basics
+- [Docker Architecture](https://docs.docker.com/get-started/overview/#docker-architecture)
+
+### Create your Docker host
 1) Create your Docker account: https://hub.docker.com/signup (you can use a [temporary e-mail address](https://www.byom.de/trashmails/) if you like)
 1) Login and startup to your playground: https://labs.play-with-docker.com/
 1) Click `+ ADD NEW INSTANCE`
