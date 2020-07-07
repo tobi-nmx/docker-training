@@ -95,10 +95,10 @@ docker-compose pull && docker-compose up -d
 
 
 ### Cheating: finishing within one minute
-####fully-automated:
+#### fully-automated:
 http://play-with-docker.com/?stack=https://raw.githubusercontent.com/tobi-nmx/docker-training/master/mywebsite/docker-compose.yml
 
-####via commandline
+#### via commandline
 ```
 # pull repository
 git clone https://github.com/tobi-nmx/docker-training.git
