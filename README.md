@@ -1,8 +1,9 @@
 # docker-training
 
-This repository is providing snipplets for an internal training and most likely isn't useful for anyone else.
+This repository is providing snipplets for an internal training and is most likely not useful for anyone else.
 
-1) Startup to your playground: https://labs.play-with-docker.com/
+1) Create your Docker account: https://hub.docker.com/signup (you can use a [temporary e-mail address](https://www.byom.de/trashmails/) if you like)
+1) Login and startup to your playground: https://labs.play-with-docker.com/
 1) Click `+ ADD NEW INSTANCE`
 1) hit Alt+Enter in the terminal window for fullscreen
 
@@ -23,7 +24,7 @@ touch docker-compose.yml
 ```
 docker-compose up
 ```
-1) click on `80`next to `OPEN PORT`, go through the basic Wordpress setup and shortly enjoy your website before we
+1) click on `80`next to `OPEN PORT`, go through the basic Wordpress setup (set the password!) and shortly enjoy your website before we
 1) press CTRL+c to shutdown the containers and start them again, this time propery in the background ("detached")
 ```
 docker-compose up -d
@@ -59,14 +60,14 @@ docker-compose logs traefik
 <details>
   <summary>Result (spoiler)</summary>
   
-  *Yes, TLS-certificate generation fails due to the 64 characters hostname limit of LetsEncrypt. There is nothing you can do about this (even if you setup a CNAME the play-with-docker ingress router won't find your site anymore). It works on a "normal" vserver or at home if your server is accessible from the internet on port 443.*  
+  *Yes, TLS-certificate generation fails due to the 64 characters hostname limit of LetsEncrypt. There is nothing you can do about this (even if you setup a CNAME the play-with-docker ingress router won't find your site anymore). It works on a "normal" vserver or at home if your server is reachable from the internet via port 443.*  
 </details>
 
 
-#### have check out the Proxy's dashboard
+#### check out the Proxy's dashboard
 by clicking at the "9999" link
 
-#### go through Wordpress setup wizzard and create your first post
+#### create your first post in Wordpress
 Your new website should be online now. Congratulations!
 
 ---
